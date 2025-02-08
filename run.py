@@ -8,4 +8,4 @@ parser.add_argument("--model", choices=["tiny", "base", "small","medium","large"
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    get_files_and_transcrible(args.directory_path)
+    get_files_and_transcrible(args.directory_path,args.model)
