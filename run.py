@@ -8,5 +8,4 @@ parser.add_argument("--model", choices=["tiny", "base", "small","medium","large"
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    print(f"Your arguments are : directory_path={args.directory_path}  model={args.model}")
     get_files_and_transcrible(args.directory_path)

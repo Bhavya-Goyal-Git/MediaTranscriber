@@ -9,7 +9,11 @@ def is_audio_video(filepath):
         mime_type = mime.from_file(filepath)
     except OSError:
         return None
-    return True if (mime_type.startswith("audio") or mime_type.startswith("video")) else False
+    if mime_type.startswith("audio"):
+        return True,"audio"
+    elif mime_type.startswith("video"):
+        return True,"video"
+    return False,None
 
 def list_files(directory):
     
@@ -17,7 +21,7 @@ def list_files(directory):
         print(f"No such directory: {directory}")
         exit(1)
 
-    file_list = []
+    audio_list,video_list = [],[]
     for root,_,files in os.walk(directory):
         for filee in files:
             file_path = os.path.join(root,filee)
@@ -29,7 +33,10 @@ def list_files(directory):
             is_media = is_audio_video(file_path)
             if is_media is None:
                 logger.error(f"Permission errors in reading File: {file_path}")
-            if is_media:
-                file_list.append(file_path)
+            elif is_media[0]:
+                if is_media[1]=="audio":
+                    audio_list.append(file_path)
+                else:
+                    video_list.append(file_path)
         
-    return file_list
+    return audio_list,video_list
